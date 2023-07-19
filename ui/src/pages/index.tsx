@@ -1,46 +1,57 @@
 import {
-  ConnectButton, useWallet
+  ConnectButton,
+  useWallet,
 } from '@suiet/wallet-kit';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import ChatInput from 'src/components/ChatInput';
 import { PostCard } from 'src/components/PostCard';
 import { SuiObjectLinkButton } from 'src/components/SuiObjectLinkButton';
-import { SUITTER_PACKAGE_ID, SUITTER_RECENT_POSTS_OBJECT_ID } from 'src/config/constants';
-import { getRecentPostIdList, getRecentPostObjectList } from 'src/suitterLib/client';
+import {
+  SUITTER_PACKAGE_ID,
+  SUITTER_RECENT_POSTS_OBJECT_ID,
+} from 'src/config/constants';
+import {
+  getRecentPostIdList,
+  getRecentPostObjectList,
+} from 'src/suitterLib/client';
 import { SuitterPost } from 'src/suitterLib/types';
+import dynamic from 'next/dynamic';
+
+import Head from 'next/head';
+import HamburgerIcon from '../components/HamburgerIcon';
+
+
 
 /**
  * WalletConnectButton コンポーネント
- * @returns 
+ * @returns
  */
 const WalletConnectButton = () => {
-  return (
-    <ConnectButton>Connect Wallet</ConnectButton>
-  );
+  return <ConnectButton>Connect Wallet</ConnectButton>;
 };
 
 /**
  * Pageコンポーネント
- * @returns 
+ * @returns
  */
 const Page = () => {
-  const [recentPostList, setRecentPostList] = useState<SuitterPost[]>([])
+  const [recentPostList, setRecentPostList] = useState<SuitterPost[]>([]);
   const { address } = useWallet();
 
   /**
    * 投稿内容を取得するためのメソッド
    */
   const getPosts = async () => {
-    const postIdList:any = await getRecentPostIdList()
-    const postList:any = await getRecentPostObjectList(postIdList)
-    console.log(postList)
-    setRecentPostList(postList)
-  }
+    const postIdList: any = await getRecentPostIdList();
+    const postList: any = await getRecentPostObjectList(postIdList);
+    console.log(postList);
+    setRecentPostList(postList);
+  };
 
   /**
    * 左列用のコンポーネント
-   * @returns 
+   * @returns
    */
   const LeftPart = () => (
     <div className="w-1/4 p-4 text-white">
@@ -64,17 +75,13 @@ const Page = () => {
           <SuiObjectLinkButton id={SUITTER_RECENT_POSTS_OBJECT_ID} />
         </span>
       </div>
-      <button
-        onClick={getPosts}
-      >
-        get posts
-      </button>
+      <button onClick={getPosts}>get posts</button>
     </div>
-  )
-  
+  );
+
   /**
    * 中央列用のコンポーネント
-   * @returns 
+   * @returns
    */
   const CenterPart = () => (
     <div className="w-1/2 p-4 border-slate-600 border-x-[0.5px] flex flex-col h-screen">
@@ -97,7 +104,7 @@ const Page = () => {
 
   /**
    * 右列用のコンポーネント
-   * @returns 
+   * @returns
    */
   const RightPart = () => (
     <div className="w-1/4 p-4 text-white">
@@ -105,24 +112,48 @@ const Page = () => {
         <WalletConnectButton />
       </div>
       <div className="font-bold text-lg mb-4">
-        <Link href="https://github.com/umi-ag/suitter">
-          GitHub
-        </Link>
+        <Link href="https://github.com/umi-ag/suitter">GitHub</Link>
       </div>
     </div>
   );
 
+  const [lastDirection, setLastDirection] = useState();
+
+  const swiped = (direction, nameToDelete) => {
+    console.log('removing: ' + nameToDelete);
+    setLastDirection(direction);
+  };
+
+  const outOfFrame = (name) => {
+    console.log(name + ' left the screen!');
+  };
+
+  const DynamicTinderPart = dynamic(() => import('./TinderPart'), { ssr: false });
+
   useEffect(() => {
     getPosts();
-  },[])
+  }, []);
 
   return (
     <main className="flex min-h-screen bg-slate-900">
-      <LeftPart />
+      <Head>
+        <title>Suinder</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <header>
+        <HamburgerIcon>
+          {/* Include Component 1 */}
+          <LeftPart />
+          {/* Include Component 2 */}
+          <RightPart />
+        </HamburgerIcon>
+      </header>
+
+      {typeof window !== 'undefined' && <DynamicTinderPart />}
       <CenterPart />
-      <RightPart />
-    </main >
-  )
-}
+    </main>
+  );
+};
 
 export default Page;

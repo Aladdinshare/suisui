@@ -1,0 +1,21 @@
+/* HamburgerIcon.module.css */
+.hamburger-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-items {
+    position: absolute;
+    top: 50px;
+    /* Adjust the top position to position the menu items correctly */
+    right: 20px;
+    /* Adjust the right position to position the menu items correctly */
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 10px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
