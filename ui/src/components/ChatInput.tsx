@@ -52,7 +52,7 @@ const ChatInput = (props) => {
           // exctuteCreatePost メソッドの呼び出し
           await exctuteCreatePost();
           setMessage("");
-          await props.getPosts();
+          await props.getPosts;
         }}
       >
         Send

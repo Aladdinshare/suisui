@@ -9,9 +9,11 @@ const HamburgerIcon = ({ children }) => {
   };
 
   return (
-    <div>
-      <div className="hamburger-icon" onClick={handleMenuToggle}>
-        <AiOutlineMenu />
+    <div className="relative bg-blue-600 text-white rounded-md">
+      <div className="absolute top-0 right-0 m-2 z-50">
+        <div className="hamburger-icon" onClick={handleMenuToggle}>
+          <AiOutlineMenu />
+        </div>
       </div>
       {isMenuOpen && (
         <div className="menu-items">
@@ -23,3 +25,4 @@ const HamburgerIcon = ({ children }) => {
 };
 
 export default HamburgerIcon;
+

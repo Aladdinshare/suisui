@@ -1,7 +1,3 @@
-import {
-  ConnectButton,
-} from '@suiet/wallet-kit';
-
 type Tweet = {
   username: string
   tweetText: string
@@ -9,30 +5,15 @@ type Tweet = {
 }
 
 /**
- * WalletConnectButton component
- * @returns 
- */
-const WalletConnectButton = () => {
-  return (
-    <button
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold"
-    // onClick={onConnect}
-    >
-      <ConnectButton />
-    </button>
-  );
-};
-
-/**
  * TweetCard Component
- * @param props 
- * @returns 
+ * @param props
+ * @returns
  */
 const TweetCard = (props: Tweet) => {
-  const { 
-    username, 
-    tweetText, 
-    avatarUrl 
+  const {
+    username,
+    tweetText,
+    avatarUrl
   } = props
 
   return (
@@ -40,11 +21,11 @@ const TweetCard = (props: Tweet) => {
       <div className="md:flex">
         <div className="md:flex-shrink-0">
           {/* <img className="h-48 w-full object-cover md:h-full md:w-48" src="https://umi.ag" alt="User avatar" /> */}
-          <img 
-            width={60} 
-            className="m-10 object-cover" 
-            src={avatarUrl} 
-            alt="User avatar" 
+          <img
+            width={60}
+            className="m-10 object-cover"
+            src={avatarUrl}
+            alt="User avatar"
           />
         </div>
 
@@ -72,8 +53,8 @@ const TweetCard = (props: Tweet) => {
 }
 
 /**
- * Page Component 
- * @returns 
+ * Page Component
+ * @returns
  */
 const Page = () => {
   const data = [
@@ -92,28 +73,13 @@ const Page = () => {
   ]
 
   return (
-    <main className="flex min-h-screen bg-slate-900">
-      <div className="w-1/4 p-4 text-white">
-        <div className="font-bold text-lg mb-4">Suitter</div>
-        <div className="font-bold text-lg mb-4">Home</div>
-        <div className="font-bold text-lg mb-4">
-          <WalletConnectButton />
-        </div>
-      </div>
-      <div className="w-1/2 p-4 border-slate-600 border-x-[0.5px]">
-        <div className="font-bold text-lg mb-4">Timeline</div>
-        <div className="flex flex-col gap-4">
+    <>
           {
             data.map((tweet) => (
               <TweetCard key={tweet.id} {...tweet} />
             ))
           }
-        </div>
-      </div>
-      <div className="w-1/4 p-4 text-white">
-        <div className="font-bold text-lg mb-4">GitHub</div>
-      </div>
-    </main>
+    </>
   )
 }
 

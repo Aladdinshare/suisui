@@ -43,9 +43,9 @@ const TinderPart = () => {
   };
 
   return (
-    <div className="w-1/2 p-4 border-slate-600 border-x-[0.5px] flex flex-col h-screen">
-      <div className="font-bold text-lg mb-4 text-white">Swipe them!</div>
-      <div className="overflow-auto flex-grow gap-1">
+    <div className="p-4 border-slate-600 border-x-[0.5px] flex flex-col h-screen">
+      {/* <div className="font-bold text-lg mb-4 text-white">Swipe them!</div> */}
+      <div className="overflow-auto flex-grow">
         <div>
           <link href='https://fonts.googleapis.com/css?family=Damion&display=swap' rel='stylesheet' />
           <link href='https://fonts.googleapis.com/css?family=Alatsi&display=swap' rel='stylesheet' />
@@ -65,7 +65,7 @@ const TinderPart = () => {
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     width: '100%',
-                    height: '350px', // Set the height to make the cards taller
+                    height: '450px', // Set the height to make the cards taller
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -74,7 +74,17 @@ const TinderPart = () => {
                   }}
                   className='card'
                 >
-                  <h3>{character.name}</h3>
+                <h3
+                    style={{
+                      position: 'absolute',
+                      bottom: '20px', // Adjust the distance from the bottom
+                      width: '100%',
+                      textAlign: 'center',
+                      color: 'white',
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold',
+                    }}
+                  >{character.name}</h3>
                 </div>
               </TinderCard>
             ))}
